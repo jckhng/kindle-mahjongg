@@ -1,0 +1,14 @@
+# Native build outputs
+/kindle-mahjongg
+/smoke-test
+*.o
+
+# Generated package tree
+/dist/
+/release/extensions/
+/release/documents/
+/release/kindle-mahjongg-extension/
+
+# Editor/OS noise
+*~
+.DS_Store

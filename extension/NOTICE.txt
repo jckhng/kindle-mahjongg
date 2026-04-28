@@ -1,0 +1,24 @@
+Kindle Mahjongg
+================
+
+Unofficial Kindle-friendly Mahjongg solitaire game derived from GNOME Games
+Mahjongg ideas and assets, with a Kindle-specific GTK2/Cairo interface.
+
+Project lineage
+---------------
+
+Kindle Mahjongg is an unofficial Kindle-focused derivative/adaptation of
+GNOME Games Mahjongg. Original GNOME Games / Mahjongg code, ideas, layouts,
+and artwork remain credited to their upstream authors. Kindle porting
+groundwork and packaging references are credited to GnomeGames4Kindle and its
+author(s).
+
+This package is not an official GNOME project or an official GnomeGames4Kindle
+release.
+
+Licensing
+---------
+
+The project is distributed with GPL-family license texts in LICENSES/.
+Runtime libraries bundled in this package keep their own upstream licenses.
+

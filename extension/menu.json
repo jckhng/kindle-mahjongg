@@ -1,0 +1,35 @@
+{
+  "items": [
+    {
+      "name": "Kindle Mahjongg",
+      "priority": 100,
+      "items": [
+        {
+          "name": "Launch",
+          "priority": 10,
+          "action": "/bin/sh ./launch_kindlemahjongg.sh",
+          "exitmenu": true
+        },
+        {
+          "name": "Restart",
+          "priority": 20,
+          "action": "/bin/sh ./launch_kindlemahjongg.sh --restart",
+          "exitmenu": true
+        },
+        {
+          "name": "Stop",
+          "priority": 30,
+          "action": "/bin/sh ./stop_kindlemahjongg.sh",
+          "exitmenu": false
+        },
+        {
+          "name": "Tail Log",
+          "priority": 40,
+          "action": "/bin/sh ./tail_log_kindlemahjongg.sh",
+          "exitmenu": false
+        }
+      ]
+    }
+  ]
+}
+
