@@ -16,10 +16,12 @@
 typedef struct {
     GtkWidget *drawing;
     GtkWidget *status;
+    GtkWidget *theme_combo;
     GdkPixbuf *tile_sheet;
     GdkPixbuf *tile_cache[2][43];
     int cache_w;
     int cache_h;
+    char theme[32];
     MahjonggGame game;
     int selected;
     int hint_a;
@@ -31,12 +33,51 @@ typedef struct {
     double tile_h;
 } App;
 
-static const int kind_to_image[36] = {
-    0, 1, 2, 3, 4, 5, 6, 7, 8,
-    9, 10, 11, 12, 13, 14, 15, 16, 17,
-    18, 19, 20, 21, 22, 23, 24, 25, 26,
-    27, 28, 29, 30, 31, 32, 33, 37, 38
-};
+static void app_apply_high_contrast(GtkWidget *widget)
+{
+    GdkColor black = {0, 0x0000, 0x0000, 0x0000};
+    GdkColor white = {0, 0xffff, 0xffff, 0xffff};
+
+    gtk_widget_modify_fg(widget, GTK_STATE_NORMAL, &black);
+    gtk_widget_modify_fg(widget, GTK_STATE_ACTIVE, &black);
+    gtk_widget_modify_fg(widget, GTK_STATE_SELECTED, &white);
+    gtk_widget_modify_text(widget, GTK_STATE_NORMAL, &black);
+    gtk_widget_modify_text(widget, GTK_STATE_SELECTED, &white);
+    gtk_widget_modify_base(widget, GTK_STATE_NORMAL, &white);
+    gtk_widget_modify_base(widget, GTK_STATE_SELECTED, &black);
+    gtk_widget_modify_bg(widget, GTK_STATE_NORMAL, &white);
+    gtk_widget_modify_bg(widget, GTK_STATE_SELECTED, &black);
+}
+
+static void app_install_kindle_style(void)
+{
+    gtk_rc_parse_string(
+        "style \"kindle_high_contrast\" {\n"
+        "  fg[NORMAL] = \"#000000\"\n"
+        "  fg[ACTIVE] = \"#000000\"\n"
+        "  fg[PRELIGHT] = \"#ffffff\"\n"
+        "  fg[SELECTED] = \"#ffffff\"\n"
+        "  text[NORMAL] = \"#000000\"\n"
+        "  text[ACTIVE] = \"#000000\"\n"
+        "  text[SELECTED] = \"#ffffff\"\n"
+        "  base[NORMAL] = \"#ffffff\"\n"
+        "  base[ACTIVE] = \"#ffffff\"\n"
+        "  base[SELECTED] = \"#000000\"\n"
+        "  bg[NORMAL] = \"#ffffff\"\n"
+        "  bg[ACTIVE] = \"#ffffff\"\n"
+        "  bg[PRELIGHT] = \"#000000\"\n"
+        "  bg[SELECTED] = \"#000000\"\n"
+        "}\n"
+        "gtk-button-images = 0\n"
+        "gtk-menu-images = 0\n"
+        "class \"GtkComboBox\" style \"kindle_high_contrast\"\n"
+        "class \"GtkCellView\" style \"kindle_high_contrast\"\n"
+        "class \"GtkMenu\" style \"kindle_high_contrast\"\n"
+        "class \"GtkMenuItem\" style \"kindle_high_contrast\"\n"
+        "widget_class \"*GtkComboBox*\" style \"kindle_high_contrast\"\n"
+        "widget_class \"*GtkMenu*\" style \"kindle_high_contrast\"\n"
+    );
+}
 
 static void app_log(const char *message)
 {
@@ -47,14 +88,24 @@ static void app_log(const char *message)
     fclose(f);
 }
 
-static GdkPixbuf *load_tile_sheet(void)
+static GdkPixbuf *load_tile_sheet(const char *theme)
 {
+    char kindle_path[256];
+    char local_path[256];
     const char *paths[] = {
-        "/mnt/us/extensions/kindle-mahjongg/assets/smooth.png",
-        "assets/smooth.png",
+        kindle_path,
+        local_path,
         NULL
     };
     int i;
+
+    if (strcmp(theme, "smooth") == 0) {
+        g_snprintf(kindle_path, sizeof(kindle_path), "/mnt/us/extensions/kindle-mahjongg/assets/smooth.png");
+        g_snprintf(local_path, sizeof(local_path), "assets/smooth.png");
+    } else {
+        g_snprintf(kindle_path, sizeof(kindle_path), "/mnt/us/extensions/kindle-mahjongg/assets/postmodern.png");
+        g_snprintf(local_path, sizeof(local_path), "assets/postmodern.png");
+    }
 
     for (i = 0; paths[i] != NULL; i++) {
         GError *error = NULL;
@@ -84,6 +135,16 @@ static void clear_tile_cache(App *app)
     }
     app->cache_w = 0;
     app->cache_h = 0;
+}
+
+static void reload_tile_sheet(App *app)
+{
+    if (app->tile_sheet) {
+        g_object_unref(app->tile_sheet);
+        app->tile_sheet = NULL;
+    }
+    clear_tile_cache(app);
+    app->tile_sheet = load_tile_sheet(app->theme);
 }
 
 static void ensure_tile_cache(App *app, int target_w, int target_h)
@@ -239,7 +300,7 @@ static gboolean on_draw(GtkWidget *widget, GdkEventExpose *event, gpointer data)
         tile_rect(app, tile, &x, &y, &w, &h);
 
         if (app->tile_sheet != NULL) {
-            int image = kind_to_image[tile->kind];
+            int image = tile->kind;
             int target_w = MAX(1, (int)w);
             int target_h = MAX(1, (int)h);
             int skin = (i == app->selected || i == app->hint_a || i == app->hint_b) ? 1 : 0;
@@ -374,6 +435,20 @@ static void on_quit_clicked(GtkButton *button, gpointer data)
     gtk_main_quit();
 }
 
+static void on_theme_changed(GtkComboBox *combo, gpointer data)
+{
+    App *app = data;
+    int active = gtk_combo_box_get_active(combo);
+
+    g_strlcpy(app->theme, active == 1 ? "smooth" : "postmodern", sizeof(app->theme));
+    reload_tile_sheet(app);
+    app->selected = -1;
+    app->hint_a = -1;
+    app->hint_b = -1;
+    app_update_status(app, active == 1 ? "Theme: Smooth" : "Theme: Postmodern");
+    gtk_widget_queue_draw(app->drawing);
+}
+
 int main(int argc, char **argv)
 {
     App app;
@@ -385,8 +460,10 @@ int main(int argc, char **argv)
 
     app_log("startup");
     gtk_init(&argc, &argv);
+    app_install_kindle_style();
     memset(&app, 0, sizeof(app));
-    app.tile_sheet = load_tile_sheet();
+    g_strlcpy(app.theme, "postmodern", sizeof(app.theme));
+    app.tile_sheet = load_tile_sheet(app.theme);
     app.selected = -1;
     app.hint_a = -1;
     app.hint_b = -1;
@@ -427,6 +504,14 @@ int main(int argc, char **argv)
     button = gtk_button_new_with_label("Undo");
     g_signal_connect(button, "clicked", G_CALLBACK(on_undo_clicked), &app);
     gtk_box_pack_start(GTK_BOX(bar), button, TRUE, TRUE, 0);
+
+    app.theme_combo = gtk_combo_box_new_text();
+    gtk_combo_box_append_text(GTK_COMBO_BOX(app.theme_combo), "Postmodern");
+    gtk_combo_box_append_text(GTK_COMBO_BOX(app.theme_combo), "Smooth");
+    gtk_combo_box_set_active(GTK_COMBO_BOX(app.theme_combo), 0);
+    app_apply_high_contrast(app.theme_combo);
+    g_signal_connect(app.theme_combo, "changed", G_CALLBACK(on_theme_changed), &app);
+    gtk_box_pack_start(GTK_BOX(bar), app.theme_combo, TRUE, TRUE, 0);
 
     button = gtk_button_new_with_label("Quit");
     g_signal_connect(button, "clicked", G_CALLBACK(on_quit_clicked), &app);

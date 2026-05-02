@@ -54,13 +54,33 @@ void mahjongg_game_init(MahjonggGame *game, unsigned int seed)
     int kinds[MAHJONGG_MAX_TILES];
     uint32_t rng = seed ? seed : 1u;
     int i;
+    int n = 0;
 
     memset(game, 0, sizeof(*game));
     game->tile_count = MAHJONGG_MAX_TILES;
     game->seed = seed;
 
-    for (i = 0; i < MAHJONGG_MAX_TILES; i++)
-        kinds[i] = i / 4;
+    for (i = 0; i <= 32; i++) {
+        kinds[n++] = i;
+        kinds[n++] = i;
+        kinds[n++] = i;
+        kinds[n++] = i;
+    }
+
+    kinds[n++] = 33;
+    kinds[n++] = 34;
+    kinds[n++] = 35;
+    kinds[n++] = 36;
+
+    kinds[n++] = 37;
+    kinds[n++] = 37;
+    kinds[n++] = 37;
+    kinds[n++] = 37;
+
+    kinds[n++] = 38;
+    kinds[n++] = 39;
+    kinds[n++] = 40;
+    kinds[n++] = 41;
 
     for (i = MAHJONGG_MAX_TILES - 1; i > 0; i--) {
         int j = (int)(next_rand(&rng) % (uint32_t)(i + 1));
@@ -76,6 +96,17 @@ void mahjongg_game_init(MahjonggGame *game, unsigned int seed)
         game->tiles[i].kind = kinds[i];
         game->tiles[i].removed = 0;
     }
+}
+
+static int match_group(int kind)
+{
+    if (kind >= 33 && kind <= 36)
+        return 33;
+    if (kind == 37)
+        return 34;
+    if (kind >= 38 && kind <= 41)
+        return 35;
+    return kind;
 }
 
 int mahjongg_tiles_remaining(const MahjonggGame *game)
@@ -130,7 +161,7 @@ int mahjongg_can_match(const MahjonggGame *game, int a, int b)
     if (a == b || a < 0 || b < 0 || a >= game->tile_count || b >= game->tile_count)
         return 0;
 
-    return game->tiles[a].kind == game->tiles[b].kind &&
+    return match_group(game->tiles[a].kind) == match_group(game->tiles[b].kind) &&
            mahjongg_is_free(game, a) &&
            mahjongg_is_free(game, b);
 }
@@ -202,10 +233,10 @@ int mahjongg_find_hint(const MahjonggGame *game, int *a, int *b)
 const char *mahjongg_kind_label(int kind)
 {
     static const char *labels[MAHJONGG_KIND_COUNT] = {
-        "1","2","3","4","5","6","7","8","9",
-        "A","B","C","D","E","F","G","H","I",
-        "I","II","III","IV","V","VI","VII","VIII","IX",
-        "N","E","S","W","R","G","Wh","F","B"
+        "1D","2D","3D","4D","5D","6D","7D","8D","9D",
+        "1C","2C","3C","4C","5C","6C","7C","8C","9C",
+        "1B","2B","3B","4B","5B","6B","7B","8B","9B",
+        "N","E","S","W","R","G","S1","S2","S3","S4","Wh","F1","F2","F3","F4"
     };
 
     if (kind < 0 || kind >= MAHJONGG_KIND_COUNT)

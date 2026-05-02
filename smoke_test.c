@@ -46,7 +46,34 @@ int main(void)
     if (mahjongg_tiles_remaining(&game) != MAHJONGG_MAX_TILES)
         return fail("undo did not restore tile count");
 
+    mahjongg_game_init(&game, 4321);
+    for (count = 0; count < game.tile_count; count++)
+        game.tiles[count].removed = 1;
+
+    game.tiles[0].removed = 0;
+    game.tiles[1].removed = 0;
+    game.tiles[0].x = 0;
+    game.tiles[0].y = 0;
+    game.tiles[0].layer = 0;
+    game.tiles[1].x = 8;
+    game.tiles[1].y = 0;
+    game.tiles[1].layer = 0;
+
+    game.tiles[0].kind = 33;
+    game.tiles[1].kind = 36;
+    if (!mahjongg_can_match(&game, 0, 1))
+        return fail("season tiles should match as a group");
+
+    game.tiles[0].kind = 38;
+    game.tiles[1].kind = 41;
+    if (!mahjongg_can_match(&game, 0, 1))
+        return fail("flower tiles should match as a group");
+
+    game.tiles[0].kind = 33;
+    game.tiles[1].kind = 38;
+    if (mahjongg_can_match(&game, 0, 1))
+        return fail("season and flower groups should not match each other");
+
     puts("smoke-test: ok");
     return 0;
 }
-

@@ -21,6 +21,10 @@ credited to GnomeGames4Kindle and its author(s).
 
 - Touch-friendly Mahjongg solitaire board using the GNOME Mahjongg Easy layout shape.
 - GNOME Mahjongg tile artwork adapted for a grayscale e-ink display.
+- Postmodern tile set by default, rasterized from `postmodern.svg` for reliable
+  Kindle loading; Smooth remains selectable from the Theme menu.
+- Correct season/flower behavior: each season or flower has distinct artwork,
+  but seasons match other seasons and flowers match other flowers.
 - Match selection, hint, undo, remaining-tile count, and move count.
 - KUAL extension package with bundled ARM runtime libraries.
 

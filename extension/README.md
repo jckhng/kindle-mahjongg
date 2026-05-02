@@ -15,3 +15,6 @@ Optional document shortcut:
 KUAL is the reliable tap-launch path. The stock Kindle home screen normally
 does not execute `.sh` files directly.
 
+The game defaults to the GNOME Postmodern tile set. Smooth remains available
+from the in-game Theme menu. Season and flower tiles use distinct artwork but
+match within their group, following Mahjongg solitaire convention.

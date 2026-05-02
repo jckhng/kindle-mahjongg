@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 #define MAHJONGG_MAX_TILES 144
-#define MAHJONGG_KIND_COUNT 36
+#define MAHJONGG_KIND_COUNT 42
 #define MAHJONGG_MAX_MOVES 72
 
 typedef struct {
@@ -39,4 +39,3 @@ int mahjongg_find_hint(const MahjonggGame *game, int *a, int *b);
 const char *mahjongg_kind_label(int kind);
 
 #endif
-

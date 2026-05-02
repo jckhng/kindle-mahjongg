@@ -16,6 +16,9 @@ GnomeGames4Kindle release.
 - Mahjongg solitaire game identity, design lineage, and project inspiration.
 - Easy layout coordinates adapted from the GNOME Mahjongg source tree.
 - Mahjongg visual assets copied into `assets/`.
+- `postmodern.svg` is the default tile set and is bundled with a rasterized
+  `postmodern.png` copy for reliable Kindle runtime loading. `smooth.png`
+  remains available as an alternate theme.
 - Project licensing basis in `licenses/`.
 
 ## What Is Kindle-Specific
@@ -47,4 +50,3 @@ extensions/kindle-mahjongg/LICENSES/THIRD-PARTY-NOTICE.txt
 
 If publishing binary releases, keep the license files and runtime notices with
 the package.
-
