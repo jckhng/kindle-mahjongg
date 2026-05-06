@@ -29,6 +29,7 @@ typedef struct {
 } MahjonggGame;
 
 void mahjongg_game_init(MahjonggGame *game, unsigned int seed);
+void mahjongg_game_restart(MahjonggGame *game);
 int mahjongg_tiles_remaining(const MahjonggGame *game);
 int mahjongg_is_free(const MahjonggGame *game, int tile_index);
 int mahjongg_can_match(const MahjonggGame *game, int a, int b);

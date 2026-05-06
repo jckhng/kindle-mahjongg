@@ -98,6 +98,12 @@ void mahjongg_game_init(MahjonggGame *game, unsigned int seed)
     }
 }
 
+void mahjongg_game_restart(MahjonggGame *game)
+{
+    unsigned int seed = game->seed;
+    mahjongg_game_init(game, seed);
+}
+
 static int match_group(int kind)
 {
     if (kind >= 33 && kind <= 36)

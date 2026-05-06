@@ -9,6 +9,7 @@
 
 #define APP_TITLE "Kindle Mahjongg"
 #define KINDLE_WINDOW_TITLE "L:A_N:application_ID:kindlemahjongg_PC:N_O:URL"
+#define KINDLE_WINDOW_TITLE_TOPBAR "L:A_N:application_PC:T_ID:kindlemahjongg_O:URL"
 #define LOG_PATH "/mnt/us/kindle-mahjongg.log"
 #define KINDLE_APP_WIDTH 1072
 #define KINDLE_APP_HEIGHT 1448
@@ -32,6 +33,13 @@ typedef struct {
     double tile_w;
     double tile_h;
 } App;
+
+static const char *kindle_window_title(void)
+{
+    const char *value = g_getenv("KINDLE_SHOW_TOPBAR");
+    return (value != NULL && value[0] != '\0' && strcmp(value, "0") != 0) ? KINDLE_WINDOW_TITLE_TOPBAR
+                                                                          : KINDLE_WINDOW_TITLE;
+}
 
 static void app_apply_high_contrast(GtkWidget *widget)
 {
@@ -398,6 +406,19 @@ static void on_new_clicked(GtkButton *button, gpointer data)
     app_new_game(data);
 }
 
+static void on_restart_clicked(GtkButton *button, gpointer data)
+{
+    App *app = data;
+    (void)button;
+
+    mahjongg_game_restart(&app->game);
+    app->selected = -1;
+    app->hint_a = -1;
+    app->hint_b = -1;
+    app_update_status(app, "Restarted");
+    gtk_widget_queue_draw(app->drawing);
+}
+
 static void on_hint_clicked(GtkButton *button, gpointer data)
 {
     App *app = data;
@@ -469,10 +490,9 @@ int main(int argc, char **argv)
     app.hint_b = -1;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), KINDLE_WINDOW_TITLE);
+    gtk_window_set_title(GTK_WINDOW(window), kindle_window_title());
     gtk_window_set_default_size(GTK_WINDOW(window), KINDLE_APP_WIDTH, KINDLE_APP_HEIGHT);
-    gtk_widget_set_size_request(window, KINDLE_APP_WIDTH, KINDLE_APP_HEIGHT);
-    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
     gtk_window_move(GTK_WINDOW(window), 0, 0);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_NONE);
     gtk_container_set_border_width(GTK_CONTAINER(window), 8);
@@ -495,6 +515,10 @@ int main(int argc, char **argv)
 
     button = gtk_button_new_with_label("New");
     g_signal_connect(button, "clicked", G_CALLBACK(on_new_clicked), &app);
+    gtk_box_pack_start(GTK_BOX(bar), button, TRUE, TRUE, 0);
+
+    button = gtk_button_new_with_label("Restart");
+    g_signal_connect(button, "clicked", G_CALLBACK(on_restart_clicked), &app);
     gtk_box_pack_start(GTK_BOX(bar), button, TRUE, TRUE, 0);
 
     button = gtk_button_new_with_label("Hint");
