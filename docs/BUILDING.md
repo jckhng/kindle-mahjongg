@@ -1,4 +1,4 @@
-# Building Kindle Mahjongg
+# Building Exact Mahjong Solitaire
 
 ## Requirements
 
@@ -20,22 +20,22 @@ docker run --privileged --rm tonistiigi/binfmt --install arm
 The persistent builder is:
 
 ```text
-image:     kindle-mahjongg-armhf-build:bullseye
-container: kindle-mahjongg-armhf-builder
+image:     exact-mahjong-solitaire-armhf-build:bullseye
+container: exact-mahjong-solitaire-armhf-builder
 ```
 
 Build outputs:
 
 ```text
-kindle-mahjongg
+exact-mahjong-solitaire
 smoke-test
-dist/kindle-mahjongg-extension.zip
+dist/exact-mahjong-solitaire-extension.zip
 ```
 
 ## Build Without Packaging
 
 ```bash
-KINDLE_MAHJONGG_PACKAGE=0 ./docker_rebuild.sh
+EXACT_MAHJONG_SOLITAIRE_PACKAGE=0 ./docker_rebuild.sh
 ```
 
 ## Builder Shell
@@ -48,14 +48,14 @@ Inside the container:
 
 ```bash
 make clean
-make kindle-mahjongg smoke-test
+make exact-mahjong-solitaire smoke-test
 ./smoke-test
 ```
 
 If you move the repository, recreate the persistent container:
 
 ```bash
-docker rm -f kindle-mahjongg-armhf-builder
+docker rm -f exact-mahjong-solitaire-armhf-builder
 ./docker_rebuild.sh
 ```
 

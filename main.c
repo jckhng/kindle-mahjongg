@@ -7,10 +7,10 @@
 #include <string.h>
 #include <time.h>
 
-#define APP_TITLE "Kindle Mahjongg"
-#define KINDLE_WINDOW_TITLE "L:A_N:application_ID:kindlemahjongg_PC:N_O:URL"
-#define KINDLE_WINDOW_TITLE_TOPBAR "L:A_N:application_PC:T_ID:kindlemahjongg_O:URL"
-#define LOG_PATH "/mnt/us/kindle-mahjongg.log"
+#define APP_TITLE "Exact Mahjong Solitaire"
+#define KINDLE_WINDOW_TITLE "L:A_N:application_ID:exactmahjongsolitaire_PC:N_O:URL"
+#define KINDLE_WINDOW_TITLE_TOPBAR "L:A_N:application_PC:T_ID:exactmahjongsolitaire_O:URL"
+#define LOG_PATH "/mnt/us/exact-mahjong-solitaire.log"
 #define KINDLE_APP_WIDTH 1072
 #define KINDLE_APP_HEIGHT 1448
 
@@ -108,10 +108,10 @@ static GdkPixbuf *load_tile_sheet(const char *theme)
     int i;
 
     if (strcmp(theme, "smooth") == 0) {
-        g_snprintf(kindle_path, sizeof(kindle_path), "/mnt/us/extensions/kindle-mahjongg/assets/smooth.png");
+        g_snprintf(kindle_path, sizeof(kindle_path), "/mnt/us/extensions/exact-mahjong-solitaire/assets/smooth.png");
         g_snprintf(local_path, sizeof(local_path), "assets/smooth.png");
     } else {
-        g_snprintf(kindle_path, sizeof(kindle_path), "/mnt/us/extensions/kindle-mahjongg/assets/postmodern.png");
+        g_snprintf(kindle_path, sizeof(kindle_path), "/mnt/us/extensions/exact-mahjong-solitaire/assets/postmodern.png");
         g_snprintf(local_path, sizeof(local_path), "assets/postmodern.png");
     }
 

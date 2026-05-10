@@ -1,21 +1,21 @@
-# Kindle Mahjongg
+# Exact Mahjong Solitaire
 
 A compact Kindle-friendly Mahjongg solitaire app inspired by GNOME Games'
 Mahjongg.
 
-![Kindle Mahjongg running on Kindle](screenshots/kindle-mahjongg.png)
+![Exact Mahjong Solitaire running on Kindle](screenshots/exact-mahjong-solitaire.png)
 
-Kindle Mahjongg is an unofficial Kindle-focused derivative/adaptation of GNOME
+Exact Mahjong Solitaire is an unofficial Kindle-focused derivative/adaptation of GNOME
 Games Mahjongg. It keeps the Mahjongg solitaire concept, GNOME Games lineage,
 and selected Mahjongg assets/layout inspiration, while replacing the original
 GNOME desktop application shell with a small GTK2/Cairo interface packaged for
 jailbroken Kindle devices.
 
 This project is also informed by the GnomeGames4Kindle porting work and follows
-the same packaging approach used by Kindle Iagno and Kindle GlChess. Original
+the same packaging approach used by Exact Reversi and Kindle GlChess. Original
 GNOME Games / Mahjongg code, ideas, layouts, and artwork remain credited to the
 GNOME Games authors; Kindle porting groundwork and packaging references are
-credited to GnomeGames4Kindle and its author(s).
+credited to GnomeGames4Kindle, originally by crazy-electron, and later contributors.
 
 ## Features
 
@@ -33,20 +33,20 @@ credited to GnomeGames4Kindle and its author(s).
 Use the prebuilt extension package:
 
 ```text
-release/kindle-mahjongg-extension.zip
+release/exact-mahjong-solitaire-extension.zip
 ```
 
 Unzip it at the Kindle USB-storage root so it creates:
 
 ```text
-/mnt/us/extensions/kindle-mahjongg
-/mnt/us/documents/shortcut_kindlemahjongg.sh
+/mnt/us/extensions/exact-mahjong-solitaire
+/mnt/us/documents/shortcut_exactmahjongsolitaire.sh
 ```
 
 Then launch from KUAL:
 
 ```text
-KUAL -> Kindle Mahjongg -> Launch
+KUAL -> Exact Mahjong Solitaire -> Launch
 ```
 
 The document shortcut is optional. KUAL is the reliable launch path; a stock
@@ -85,10 +85,10 @@ ARMv7 Debian Bullseye container:
 
 That command:
 
-- Builds or starts the persistent `kindle-mahjongg-armhf-builder` container.
-- Compiles the ARM hard-float `kindle-mahjongg` binary.
+- Builds or starts the persistent `exact-mahjong-solitaire-armhf-builder` container.
+- Compiles the ARM hard-float `exact-mahjong-solitaire` binary.
 - Runs `smoke-test`.
-- Packages `dist/kindle-mahjongg-extension.zip`.
+- Packages `dist/exact-mahjong-solitaire-extension.zip`.
 
 If your Linux Docker install cannot run ARM containers, install binfmt support:
 
@@ -103,7 +103,7 @@ See [docs/BUILDING.md](docs/BUILDING.md) for the full build process.
 The checked-in release artifact is:
 
 ```text
-release/kindle-mahjongg-extension.zip
+release/exact-mahjong-solitaire-extension.zip
 ```
 
 Verify it with:
@@ -115,7 +115,7 @@ sha256sum -c SHA256SUMS
 
 ## License And Provenance
 
-Kindle Mahjongg is not an official GNOME project or an official
+Exact Mahjong Solitaire is not an official GNOME project or an official
 GnomeGames4Kindle release. It is a derivative/adaptation project that includes
 assets and project lineage from GNOME Games Mahjongg and keeps the applicable
 GPL-family license texts in `licenses/`. The Kindle-specific application code
@@ -133,6 +133,6 @@ See [docs/PROVENANCE.md](docs/PROVENANCE.md).
 Before publishing a GitHub release, keep these files together:
 
 - Source tree, including `assets/`, `licenses/`, `docs/`, and `extension/`.
-- Binary package: `release/kindle-mahjongg-extension.zip`.
+- Binary package: `release/exact-mahjong-solitaire-extension.zip`.
 - Checksum file: `release/SHA256SUMS`.
-- Runtime notices embedded inside the zip under `extensions/kindle-mahjongg/LICENSES/`.
+- Runtime notices embedded inside the zip under `extensions/exact-mahjong-solitaire/LICENSES/`.

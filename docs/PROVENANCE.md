@@ -1,12 +1,12 @@
 # Provenance And Licensing
 
-Kindle Mahjongg is an unofficial Kindle-focused derivative/adaptation of GNOME
+Exact Mahjong Solitaire is an unofficial Kindle-focused derivative/adaptation of GNOME
 Games Mahjongg.
 
 It is also informed by the GnomeGames4Kindle porting work. Original GNOME
 Games / Mahjongg code, ideas, layouts, and artwork remain credited to their
 upstream authors. Kindle porting groundwork and packaging references are
-credited to GnomeGames4Kindle and its author(s).
+credited to GnomeGames4Kindle, originally by crazy-electron, and later contributors.
 
 This repository is not an official GNOME project and is not an official
 GnomeGames4Kindle release.
@@ -44,8 +44,8 @@ Those libraries keep their own upstream licenses. The generated extension
 package includes:
 
 ```text
-extensions/kindle-mahjongg/LICENSES/RUNTIME-LIBS.txt
-extensions/kindle-mahjongg/LICENSES/THIRD-PARTY-NOTICE.txt
+extensions/exact-mahjong-solitaire/LICENSES/RUNTIME-LIBS.txt
+extensions/exact-mahjong-solitaire/LICENSES/THIRD-PARTY-NOTICE.txt
 ```
 
 If publishing binary releases, keep the license files and runtime notices with

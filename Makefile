@@ -9,13 +9,13 @@ TEST_OBJS = smoke_test.o mahjongg_engine.o
 
 .PHONY: all clean
 
-all: kindle-mahjongg
+all: exact-mahjong-solitaire
 
-kindle-mahjongg: $(OBJS)
+exact-mahjong-solitaire: $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDLIBS)
 
 smoke-test: $(TEST_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(TEST_OBJS) $(LDLIBS)
 
 clean:
-	rm -f $(OBJS) $(TEST_OBJS) kindle-mahjongg smoke-test
+	rm -f $(OBJS) $(TEST_OBJS) exact-mahjong-solitaire smoke-test

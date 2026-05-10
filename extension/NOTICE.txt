@@ -1,4 +1,4 @@
-Kindle Mahjongg
+Exact Mahjong Solitaire
 ================
 
 Unofficial Kindle-friendly Mahjongg solitaire game derived from GNOME Games
@@ -7,7 +7,7 @@ Mahjongg ideas and assets, with a Kindle-specific GTK2/Cairo interface.
 Project lineage
 ---------------
 
-Kindle Mahjongg is an unofficial Kindle-focused derivative/adaptation of
+Exact Mahjong Solitaire is an unofficial Kindle-focused derivative/adaptation of
 GNOME Games Mahjongg. Original GNOME Games / Mahjongg code, ideas, layouts,
 and artwork remain credited to their upstream authors. Kindle porting
 groundwork and packaging references are credited to GnomeGames4Kindle and its

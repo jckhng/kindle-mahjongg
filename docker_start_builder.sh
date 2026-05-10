@@ -2,8 +2,8 @@
 set -eu
 
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-IMAGE="${KINDLE_MAHJONGG_DOCKER_IMAGE:-kindle-mahjongg-armhf-build:bullseye}"
-CONTAINER="${KINDLE_MAHJONGG_DOCKER_CONTAINER:-kindle-mahjongg-armhf-builder}"
+IMAGE="${EXACT_MAHJONG_SOLITAIRE_DOCKER_IMAGE:-exact-mahjong-solitaire-armhf-build:bullseye}"
+CONTAINER="${EXACT_MAHJONG_SOLITAIRE_DOCKER_CONTAINER:-exact-mahjong-solitaire-armhf-builder}"
 
 if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
     "$ROOT/docker_build_image.sh"
@@ -17,8 +17,8 @@ else
     docker run -d \
         --platform linux/arm/v7 \
         --name "$CONTAINER" \
-        -v "$ROOT:/src/kindle-mahjongg" \
-        -w /src/kindle-mahjongg \
+        -v "$ROOT:/src/exact-mahjong-solitaire" \
+        -w /src/exact-mahjong-solitaire \
         "$IMAGE" \
         sleep infinity >/dev/null
 fi

@@ -2,7 +2,7 @@
 set -eu
 
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-IMAGE="${KINDLE_MAHJONGG_DOCKER_IMAGE:-kindle-mahjongg-armhf-build:bullseye}"
+IMAGE="${EXACT_MAHJONG_SOLITAIRE_DOCKER_IMAGE:-exact-mahjong-solitaire-armhf-build:bullseye}"
 
 docker build \
     --platform linux/arm/v7 \

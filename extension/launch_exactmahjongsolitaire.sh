@@ -1,11 +1,11 @@
 #!/bin/sh
 
-EXT_DIR="/mnt/us/extensions/kindle-mahjongg"
-APP_BIN="$EXT_DIR/bin/armhf/kindle-mahjongg"
-APP_LOG="/mnt/us/kindle-mahjongg.log"
-APP_TITLE="Kindle Mahjongg"
+EXT_DIR="/mnt/us/extensions/exact-mahjong-solitaire"
+APP_BIN="$EXT_DIR/bin/armhf/exact-mahjong-solitaire"
+APP_LOG="/mnt/us/exact-mahjong-solitaire.log"
+APP_TITLE="Exact Mahjong Solitaire"
 APP_LOADER="$EXT_DIR/lib/armhf/ld-linux-armhf.so.3"
-RUNTIME_MODE="${KINDLE_MAHJONGG_RUNTIME:-auto}"
+RUNTIME_MODE="${EXACT_MAHJONG_SOLITAIRE_RUNTIME:-auto}"
 
 if [ ! -x "$APP_BIN" ]; then
     echo "$APP_TITLE binary not found: $APP_BIN" >"$APP_LOG"
@@ -59,7 +59,7 @@ try_launch() {
     if kill -0 "$pid" 2>/dev/null || pgrep -f "$APP_BIN" >/dev/null 2>&1; then
         echo "Started runtime: $mode pid=$pid" >>"$APP_LOG"
         if command -v xwininfo >/dev/null 2>&1; then
-            DISPLAY=:0 xwininfo -root -tree 2>/dev/null | grep -i "mahjongg\\|kindlemahjongg\\|kindle" >>"$APP_LOG" 2>&1 || true
+            DISPLAY=:0 xwininfo -root -tree 2>/dev/null | grep -i "mahjongg\\|exactmahjongsolitaire\\|kindle" >>"$APP_LOG" 2>&1 || true
         fi
         exit 0
     fi

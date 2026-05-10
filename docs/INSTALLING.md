@@ -24,27 +24,27 @@ current guide for your exact device.
 
 ## Install
 
-Unzip `release/kindle-mahjongg-extension.zip` at the Kindle USB-storage root.
+Unzip `release/exact-mahjong-solitaire-extension.zip` at the Kindle USB-storage root.
 
 Expected paths:
 
 ```text
-/mnt/us/extensions/kindle-mahjongg
-/mnt/us/documents/shortcut_kindlemahjongg.sh
+/mnt/us/extensions/exact-mahjong-solitaire
+/mnt/us/documents/shortcut_exactmahjongsolitaire.sh
 ```
 
 Fix execute bits over SSH if needed:
 
 ```sh
-chmod 755 /mnt/us/extensions/kindle-mahjongg/*.sh
-chmod 755 /mnt/us/extensions/kindle-mahjongg/bin/armhf/kindle-mahjongg
-chmod 755 /mnt/us/documents/shortcut_kindlemahjongg.sh
+chmod 755 /mnt/us/extensions/exact-mahjong-solitaire/*.sh
+chmod 755 /mnt/us/extensions/exact-mahjong-solitaire/bin/armhf/exact-mahjong-solitaire
+chmod 755 /mnt/us/documents/shortcut_exactmahjongsolitaire.sh
 ```
 
 Launch from KUAL:
 
 ```text
-KUAL -> Kindle Mahjongg -> Launch
+KUAL -> Exact Mahjong Solitaire -> Launch
 ```
 
 The document shortcut is optional. KUAL is the reliable launch path; a stock
@@ -54,7 +54,7 @@ launcher/file association is installed.
 Logs:
 
 ```sh
-tail -n 120 /mnt/us/kindle-mahjongg.log
-tail -n 120 /mnt/us/kindle-mahjongg-shortcut.log
+tail -n 120 /mnt/us/exact-mahjong-solitaire.log
+tail -n 120 /mnt/us/exact-mahjong-solitaire-shortcut.log
 ```
 

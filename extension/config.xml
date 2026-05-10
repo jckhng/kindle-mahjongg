@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension>
   <information>
-    <name>Kindle Mahjongg</name>
-    <id>kindle_mahjongg</id>
+    <name>Exact Mahjong Solitaire</name>
+    <id>exact_mahjong_solitaire</id>
     <version>0.1.0</version>
   </information>
   <menus>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#2a1f0e"/>
+  <!-- Stacked mahjong tiles suggestion -->
+  <rect x="80" y="160" width="110" height="150" rx="14" fill="#e8d5a0" stroke="#b09050" stroke-width="4"/>
+  <rect x="100" y="140" width="110" height="150" rx="14" fill="#f0e0b0" stroke="#b09050" stroke-width="4"/>
+  <rect x="120" y="120" width="110" height="150" rx="14" fill="#f8eecc" stroke="#b09050" stroke-width="4"/>
+  <!-- Bamboo suit symbol on top tile -->
+  <line x1="155" y1="155" x2="155" y2="245" stroke="#2a8a2a" stroke-width="10" stroke-linecap="round"/>
+  <line x1="175" y1="155" x2="175" y2="245" stroke="#2a8a2a" stroke-width="10" stroke-linecap="round"/>
+  <line x1="195" y1="155" x2="195" y2="245" stroke="#2a8a2a" stroke-width="10" stroke-linecap="round"/>
+  <line x1="145" y1="175" x2="210" y2="175" stroke="#2a8a2a" stroke-width="7" stroke-linecap="round"/>
+  <line x1="145" y1="200" x2="210" y2="200" stroke="#2a8a2a" stroke-width="7" stroke-linecap="round"/>
+  <line x1="145" y1="225" x2="210" y2="225" stroke="#2a8a2a" stroke-width="7" stroke-linecap="round"/>
+  <!-- Second stack -->
+  <rect x="280" y="170" width="110" height="150" rx="14" fill="#e8d5a0" stroke="#b09050" stroke-width="4"/>
+  <rect x="300" y="150" width="110" height="150" rx="14" fill="#f0e0b0" stroke="#b09050" stroke-width="4"/>
+  <rect x="320" y="130" width="110" height="150" rx="14" fill="#f8eecc" stroke="#b09050" stroke-width="4"/>
+  <!-- Circle suit symbol -->
+  <circle cx="375" cy="185" r="20" fill="none" stroke="#c04000" stroke-width="8"/>
+  <circle cx="375" cy="225" r="20" fill="none" stroke="#c04000" stroke-width="8"/>
+  <circle cx="375" cy="265" r="20" fill="none" stroke="#c04000" stroke-width="8"/>
+</svg>

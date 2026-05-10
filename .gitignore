@@ -1,13 +1,16 @@
 # Native build outputs
-/kindle-mahjongg
+/exact-mahjong-solitaire
 /smoke-test
 *.o
 
 # Generated package tree
 /dist/
-/release/extensions/
-/release/documents/
-/release/kindle-mahjongg-extension/
+/release/
+/pwa/dist/
+/pwa/node_modules/
+/pwa/*.tsbuildinfo
+/pwa/vite.config.js
+/pwa/vite.config.d.ts
 
 # Editor/OS noise
 *~

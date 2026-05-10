@@ -1,37 +1,37 @@
 {
   "items": [
     {
-      "name": "Kindle Mahjongg",
+      "name": "Exact Mahjong Solitaire",
       "priority": 100,
       "items": [
         {
           "name": "Launch",
           "priority": 10,
-          "action": "/bin/sh ./launch_kindlemahjongg.sh",
+          "action": "/bin/sh ./launch_exactmahjongsolitaire.sh",
           "exitmenu": true
         },
         {
           "name": "Restart",
           "priority": 20,
-          "action": "/bin/sh ./launch_kindlemahjongg.sh --restart",
+          "action": "/bin/sh ./launch_exactmahjongsolitaire.sh --restart",
           "exitmenu": true
         },
         {
           "name": "Launch With Topbar",
           "priority": 25,
-          "action": "env KINDLE_SHOW_TOPBAR=1 /bin/sh ./launch_kindlemahjongg.sh --restart",
+          "action": "env KINDLE_SHOW_TOPBAR=1 /bin/sh ./launch_exactmahjongsolitaire.sh --restart",
           "exitmenu": true
         },
         {
           "name": "Stop",
           "priority": 30,
-          "action": "/bin/sh ./stop_kindlemahjongg.sh",
+          "action": "/bin/sh ./stop_exactmahjongsolitaire.sh",
           "exitmenu": false
         },
         {
           "name": "Tail Log",
           "priority": 40,
-          "action": "/bin/sh ./tail_log_kindlemahjongg.sh",
+          "action": "/bin/sh ./tail_log_exactmahjongsolitaire.sh",
           "exitmenu": false
         }
       ]
