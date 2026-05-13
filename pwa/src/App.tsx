@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const MAX_TILES = 144;
 // Tile themes match native exact-mahjong-solitaire combo (Postmodern, Smooth).
@@ -162,6 +162,7 @@ const TILE_W = TW * 2, TILE_H = TH * 2; // 52 × 72
 const MAX_X = 30, MAX_Y = 16, MAX_LAYER = 5;
 const BOARD_W = MAX_X * TW + MAX_LAYER * Math.abs(LAYER_OX) + 8;
 const BOARD_H = MAX_Y * TH + MAX_LAYER * Math.abs(LAYER_OY) + 8;
+const PUBLIC_BASE = import.meta.env.BASE_URL;
 
 export default function App() {
   const initial = useMemo(loadState, []);
@@ -172,6 +173,8 @@ export default function App() {
   const [message, setMessage] = useState("");
   const [page, setPage] = useState<"game" | "about">("game");
   const [theme, setTheme] = useState<Theme>(initial.theme);
+  const boardAreaRef = useRef<HTMLElement | null>(null);
+  const [boardScale, setBoardScale] = useState(1);
 
   const remaining = useMemo(() => tilesRemaining(game.tiles), [game.tiles]);
   const matches = useMemo(() => collectMatches(game.tiles), [game]);
@@ -181,6 +184,21 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ game, savedGame, theme }));
   }, [game, savedGame, theme]);
+
+  useEffect(() => {
+    const area = boardAreaRef.current;
+    if (!area) return;
+    const updateScale = () => {
+      const style = window.getComputedStyle(area);
+      const horizontalPadding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+      const availableWidth = Math.max(0, area.clientWidth - horizontalPadding);
+      setBoardScale(Math.min(1, availableWidth / BOARD_W));
+    };
+    updateScale();
+    const observer = new ResizeObserver(updateScale);
+    observer.observe(area);
+    return () => observer.disconnect();
+  }, []);
 
   function tapTile(idx: number) {
     setHint(null);
@@ -272,8 +290,12 @@ export default function App() {
           <button onClick={() => { localStorage.removeItem(STORAGE_KEY); handleNew(); }}>Clear Browser Save</button>
         </section>
       ) : (
-        <section className="board-area" aria-label="Mahjong board">
-          <div className="board-inner" style={{ width: BOARD_W, height: BOARD_H }}>
+        <section ref={boardAreaRef} className="board-area" aria-label="Mahjong board">
+          <div className="board-fit" style={{ width: BOARD_W * boardScale, height: BOARD_H * boardScale }}>
+          <div
+            className="board-inner"
+            style={{ width: BOARD_W, height: BOARD_H, transform: `scale(${boardScale})` }}
+          >
             {sortedTiles.map(tile => {
               const px = tile.x * TW + tile.layer * LAYER_OX + 4;
               const py = tile.y * TH + tile.layer * LAYER_OY + 4;
@@ -284,7 +306,7 @@ export default function App() {
               const isHintB = hint?.[1] === tile.idx;
               const label = kindLabel(tile.kind);
               const spriteStyle = {
-                backgroundImage: `url(/${theme}.png)`,
+                backgroundImage: `url(${PUBLIC_BASE}${theme}.png)`,
                 backgroundSize: `${SPRITE_COLS * TILE_W}px ${2 * TILE_H}px`,
                 backgroundPosition: `-${tile.kind * TILE_W}px 0px`,
                 backgroundRepeat: "no-repeat" as const,
@@ -305,6 +327,7 @@ export default function App() {
                 />
               );
             })}
+          </div>
           </div>
 
           <div className="stats-bar">

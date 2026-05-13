@@ -6,7 +6,7 @@
   text-rendering: optimizeLegibility;
 }
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: #e5e5e5; }
+body { margin: 0; min-width: 0; min-height: 100vh; overflow-x: hidden; background: #e5e5e5; }
 button, select { font: inherit; }
 
 .app { width: min(1200px, 100%); margin: 0 auto; padding: 16px; }
@@ -52,7 +52,7 @@ button, select { font: inherit; }
 }
 
 .board-area {
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
   background: #d6d2c4;
   border-radius: 10px;
@@ -60,9 +60,15 @@ button, select { font: inherit; }
   padding: 16px;
 }
 
+.board-fit {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 .board-inner {
   position: relative;
-  margin: 0 auto;
+  transform-origin: top left;
 }
 
 .tile {
@@ -90,6 +96,7 @@ button, select { font: inherit; }
 
 .stats-bar {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   font-size: 1rem;
@@ -108,4 +115,11 @@ button, select { font: inherit; }
 .about-page button {
   min-height: 46px; border: 2px solid #111; border-radius: 10px;
   background: #111; color: #fff; font-weight: 900; padding: 0 16px;
+}
+
+@media (max-width: 560px) {
+  .app { padding: 10px; }
+  .toolbar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .board-area { padding: 8px; }
+  .stats-bar { gap: 8px 14px; font-size: 0.9rem; }
 }
