@@ -15,6 +15,24 @@ button, select { font: inherit; }
 .hero h1 { margin: 0; font-size: clamp(1.8rem, 7vw, 3.6rem); letter-spacing: -0.05em; }
 .hero p { min-height: 1.5em; margin: 0; font-size: clamp(0.95rem, 3vw, 1.3rem); font-weight: 700; }
 
+.status-with-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.status-tile {
+  display: inline-block;
+  width: 26px;
+  height: 36px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.35);
+  image-rendering: auto;
+  transform: scale(1.1);
+  transform-origin: center;
+}
+
 .toolbar {
   display: grid;
   gap: 8px;

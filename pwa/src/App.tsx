@@ -164,6 +164,21 @@ const BOARD_W = MAX_X * TW + MAX_LAYER * Math.abs(LAYER_OX) + 8;
 const BOARD_H = MAX_Y * TH + MAX_LAYER * Math.abs(LAYER_OY) + 8;
 const PUBLIC_BASE = import.meta.env.BASE_URL;
 
+function TilePreview({ kind, theme }: { kind: number; theme: Theme }) {
+  return (
+    <span
+      className="status-tile"
+      aria-label="Selected tile"
+      style={{
+        backgroundImage: `url(${PUBLIC_BASE}${theme}.png)`,
+        backgroundSize: `${SPRITE_COLS * TW}px ${2 * TH}px`,
+        backgroundPosition: `-${kind * TW}px 0px`,
+        backgroundRepeat: "no-repeat"
+      }}
+    />
+  );
+}
+
 export default function App() {
   const initial = useMemo(loadState, []);
   const [game, setGame] = useState<GameState>(initial.game);
@@ -203,18 +218,18 @@ export default function App() {
   function tapTile(idx: number) {
     setHint(null);
     if (game.tiles[idx].removed || !isFree(game.tiles, idx)) return;
-    if (selected === null) { setSelected(idx); setMessage(`Selected: ${kindLabel(game.tiles[idx].kind)}`); return; }
+    if (selected === null) { setSelected(idx); setMessage("Selected:"); return; }
     if (selected === idx) { setSelected(null); setMessage("Deselected."); return; }
     if (canMatch(game.tiles, selected, idx)) {
       const next = applyMatch(game, selected, idx);
       if (next) {
         setGame(next); setSelected(null);
         const rem = tilesRemaining(next.tiles);
-        setMessage(rem === 0 ? "You win! All tiles cleared!" : `Matched ${kindLabel(game.tiles[selected].kind)}. ${rem} tiles left.`);
+        setMessage(rem === 0 ? "You win! All tiles cleared!" : `Matched tiles. ${rem} tiles left.`);
       }
     } else {
       setSelected(idx);
-      setMessage(`Selected: ${kindLabel(game.tiles[idx].kind)}`);
+      setMessage("Selected:");
     }
   }
 
@@ -225,7 +240,7 @@ export default function App() {
     if (matches.length === 0) { setMessage("No moves available."); return; }
     const pick = matches[Math.floor(Math.random() * matches.length)];
     setHint([pick.a, pick.b]); setSelected(null);
-    setMessage(`Hint: ${kindLabel(game.tiles[pick.a].kind)} can match.`);
+    setMessage("Hint: matching tiles highlighted.");
   }
   function handleSave() { setSavedGame(game); setMessage("Saved."); }
   function handleLoad() {
@@ -254,11 +269,23 @@ export default function App() {
     return message || `${remaining} tiles remaining. ${matches.length} possible matches.`;
   }
 
+  function statusContent() {
+    if (!isOver && !isStuck && selected !== null && message === "Selected:") {
+      return (
+        <span className="status-with-tile">
+          <span>Selected:</span>
+          <TilePreview kind={game.tiles[selected].kind} theme={theme} />
+        </span>
+      );
+    }
+    return statusMsg();
+  }
+
   return (
     <main className="app">
       <header className="hero">
         <h1>Exact Mahjong Solitaire</h1>
-        <p>{statusMsg()}</p>
+        <p>{statusContent()}</p>
       </header>
 
       <section className="toolbar" aria-label="Game controls">
